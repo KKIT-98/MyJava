@@ -13,6 +13,8 @@ public class StrChange {
         //文本标签字体
         Font TexFont = new Font("黑体", Font.BOLD, 18);
 
+        //文本域字体
+        Font TextAreaFont = new Font("TimesNewRoman",Font.PLAIN,14);
 
         //创建Frame窗口
         JFrame jFrame = new JFrame("文本转换");
@@ -46,12 +48,72 @@ public class StrChange {
         jPanelTex2.setBorder(new LineBorder(Color.magenta));
         jPanelTex2.setBounds(350,10,100,30);
 
-        //文本标签 待转换文本
+        //文本标签 转换后文本
         JLabel jLabelTex2 = new JLabel("转换后文本");
         //设置文本标签字体
         jLabelTex2.setFont(TexFont);
         //将文本标签添加到文本标签面板
         jPanelTex2.add(jLabelTex2);
+
+        //创建一个JPanel对象存放【文本域待转换文本】
+        JPanel jPanelTexArea1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        //显示面板边框及颜色
+        jPanelTexArea1.setBorder(new LineBorder(Color.GREEN));
+        jPanelTexArea1.setBounds(20,50,200,600);
+        //让JTextArea平铺整个JPanel
+        jPanelTexArea1.setLayout(new BorderLayout());
+
+        //创建一个30行20列的【文本域待转换文本】
+        JTextArea jTextArea1 = new JTextArea(30, 20);
+        //将【文本域待转换文本】放入滚动窗口
+        JScrollPane jScrollPane1 = new JScrollPane(jTextArea1);
+
+        //设置文本域自动换行
+        jTextArea1.setLineWrap(true);
+        //设置文本域组件背景颜色
+        //jTextArea1.setBackground(Color.MAGENTA);
+        //设置文本域字体样式
+        jTextArea1.setFont(TextAreaFont);
+        jPanelTexArea1.add(jTextArea1);
+
+        //设置滚动条面板位置和大小
+        jScrollPane1.setBounds(20,50,200,600);
+        //设置滚动速度
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(30);
+        //设置水平滚动条从不显示
+        jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+
+
+        //创建一个JPanel对象存放【文本域转换完文本】
+        JPanel jPanelTexArea2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        //显示面板边框及颜色
+        jPanelTexArea2.setBorder(new LineBorder(Color.GREEN));
+        jPanelTexArea2.setBounds(300,50,200,600);
+        //让JTextArea平铺整个JPanel
+        jPanelTexArea2.setLayout(new BorderLayout());
+
+        //创建一个30行20列的【文本域转换完文本】
+        JTextArea jTextArea2 = new JTextArea(30, 20);
+        //将【文本域转换完文本】放入滚动窗口
+        JScrollPane jScrollPane2 = new JScrollPane(jTextArea2);
+
+        //设置文本域自动换行
+        jTextArea2.setLineWrap(true);
+        //设置文本域组件背景颜色
+        //jTextArea2.setBackground(Color.MAGENTA);
+        //设置文本域字体样式
+        jTextArea2.setFont(TextAreaFont);
+        jPanelTexArea2.add(jTextArea2);
+
+        //设置滚动条面板位置和大小
+        jScrollPane2.setBounds(300,50,200,600);
+        //设置滚动速度
+        jScrollPane2.getVerticalScrollBar().setUnitIncrement(30);
+        //设置水平滚动条从不显示
+        jScrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
 
 
         //设置空布局 随意摆放组件
@@ -61,6 +123,20 @@ public class StrChange {
         //将Panel面板添加到JFrame容器中
         jFrame.getContentPane().add(jPanelTex1); //文本标签面板 待转换文本
         jFrame.getContentPane().add(jPanelTex2); //文本标签面板 转换后文本
+
+        //添加文本域面板【待转换文本】
+        jFrame.getContentPane().add(jPanelTexArea1); //文本域待转换文本
+        jScrollPane1.getViewport().add(jPanelTexArea1); //将普通面板添加到滚动条面板【文本域待转换文本】
+        jFrame.getContentPane().add(jScrollPane1); //文本域待转换文本滚动条
+
+
+        //添加文本域面板【转换完文本】
+        jFrame.getContentPane().add(jPanelTexArea2); //文本域转换完文本
+        jScrollPane2.getViewport().add(jPanelTexArea2); //将普通面板添加到滚动条面板【文本域转换完文本】
+        jFrame.getContentPane().add(jScrollPane2); //文本域转换完文本滚动条
+
+
+
 
         //设置窗口是否可见
         jFrame.setVisible(true);
