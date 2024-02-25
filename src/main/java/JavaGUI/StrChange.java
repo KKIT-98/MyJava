@@ -3,16 +3,18 @@ package JavaGUI;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class StrChange {
     public static void main(String[] args) {
 
+        /*通用字体设置
+         * */
         //按钮字体
         Font buttonFont = new Font("宋体", Font.BOLD, 16);
-
         //文本标签字体
         Font TexFont = new Font("黑体", Font.BOLD, 18);
-
         //文本域字体
         Font TextAreaFont = new Font("TimesNewRoman",Font.PLAIN,14);
 
@@ -31,7 +33,7 @@ public class StrChange {
         //创建一个JPanel对象存放文本标签 --> 待转换文本
         JPanel jPanelTex1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         //显示面板边框及颜色
-        jPanelTex1.setBorder(new LineBorder(Color.magenta));
+        //jPanelTex1.setBorder(new LineBorder(Color.magenta));
         jPanelTex1.setBounds(50,10,100,30);
 
         //文本标签 待转换文本
@@ -45,7 +47,7 @@ public class StrChange {
         //创建一个JPanel对象存放文本标签 --> 转换后文本
         JPanel jPanelTex2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         //显示面板边框及颜色
-        jPanelTex2.setBorder(new LineBorder(Color.magenta));
+        //jPanelTex2.setBorder(new LineBorder(Color.magenta));
         jPanelTex2.setBounds(350,10,100,30);
 
         //文本标签 转换后文本
@@ -58,7 +60,7 @@ public class StrChange {
         //创建一个JPanel对象存放【文本域待转换文本】
         JPanel jPanelTexArea1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         //显示面板边框及颜色
-        jPanelTexArea1.setBorder(new LineBorder(Color.GREEN));
+        //jPanelTexArea1.setBorder(new LineBorder(Color.GREEN));
         jPanelTexArea1.setBounds(20,50,200,600);
         //让JTextArea平铺整个JPanel
         jPanelTexArea1.setLayout(new BorderLayout());
@@ -89,7 +91,7 @@ public class StrChange {
         //创建一个JPanel对象存放【文本域转换完文本】
         JPanel jPanelTexArea2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         //显示面板边框及颜色
-        jPanelTexArea2.setBorder(new LineBorder(Color.GREEN));
+        //jPanelTexArea2.setBorder(new LineBorder(Color.GREEN));
         //设置组件位置
         jPanelTexArea2.setBounds(300,50,200,600);
         //让JTextArea平铺整个JPanel
@@ -120,7 +122,7 @@ public class StrChange {
         //创建一个JPanel对象存放【转换按钮】
         JPanel jPanelButton1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         //显示面板边框及颜色
-        jPanelButton1.setBorder(new LineBorder(Color.YELLOW));
+        //jPanelButton1.setBorder(new LineBorder(Color.YELLOW));
         //设置组件位置
         jPanelButton1.setBounds(20,660,200,50);
 
@@ -141,7 +143,7 @@ public class StrChange {
         //创建一个JPanel对象存放【复制按钮】
         JPanel jPanelButton2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         //显示面板边框及颜色
-        jPanelButton2.setBorder(new LineBorder(Color.YELLOW));
+        //jPanelButton2.setBorder(new LineBorder(Color.YELLOW));
         //设置组件位置
         jPanelButton2.setBounds(300,660,200,50);
 
@@ -184,5 +186,74 @@ public class StrChange {
         //设置窗口是否可见
         jFrame.setVisible(true);
 
+
+        //监听器将实现了ActionListener的类创建对象绑定给按钮对象
+        //转换按钮
+        ChangeListener changeListener = new ChangeListener();
+        ChangeButton.addActionListener(changeListener);
+        //复制按钮
+        CopyListener copyListener = new CopyListener();
+        CopyButton.addActionListener(copyListener);
+
+        //获取待转换文本域文本
+        String textArea1Text = jTextArea1.getText();
+        //先赋一个空值保证输入框显示能够获取，在输入后调用getText()方法覆盖空值
+        System.out.println("初始化文本" + textArea1Text);
+        //将输入待转换文本域对象传给监听器
+        changeListener.text = jTextArea1;
+        changeListener.text2 = jTextArea2;
+        System.out.println(changeListener.text2.getText());
+        copyListener.text = jTextArea2;
+
+
     }
+
+    //转换按钮监听器
+    public static class ChangeListener implements ActionListener{
+        JTextArea text;
+        JTextArea text2;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //获取按钮上的字符串
+            String buttonStr = e.getActionCommand();
+            //验证监听器，监听点击按钮的动作事件
+            System.out.println(buttonStr);
+            System.out.println("转换按钮被点击");
+            //获取文本域的文字
+            String getTex = text.getText().trim();
+            if(getTex.isEmpty()){
+                JOptionPane.showMessageDialog(null,"请输入待转换文本！","警告",JOptionPane.WARNING_MESSAGE);
+            }else {
+                String processStr = getTex + "\n";
+                String replaceStr = "(" + processStr.replaceAll("\\n","','") + ")";
+                text2.setText(replaceStr);
+                System.out.println(replaceStr);
+            }
+        }
+    }
+
+    //复制按钮监听器
+    public static class CopyListener implements ActionListener{
+        JTextArea text;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //获取按钮上的字符串
+            String buttonStr = e.getActionCommand();
+            //验证监听器，监听点击按钮的动作事件
+            System.out.println(buttonStr);
+            System.out.println("复制按钮被点击");
+            //获取文本域的文字
+            String getTex = text.getText().trim();
+            //验证是否获取到了转换的文本域文字
+            System.out.println(getTex);
+            //创建焦点
+            text.requestFocus();
+            //选择全部
+            text.selectAll();
+            //复制到剪切板
+            text.copy();
+
+        }
+    }
+
 }
