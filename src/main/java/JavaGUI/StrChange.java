@@ -90,6 +90,7 @@ public class StrChange {
         JPanel jPanelTexArea2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         //显示面板边框及颜色
         jPanelTexArea2.setBorder(new LineBorder(Color.GREEN));
+        //设置组件位置
         jPanelTexArea2.setBounds(300,50,200,600);
         //让JTextArea平铺整个JPanel
         jPanelTexArea2.setLayout(new BorderLayout());
@@ -116,6 +117,46 @@ public class StrChange {
 
 
 
+        //创建一个JPanel对象存放【转换按钮】
+        JPanel jPanelButton1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        //显示面板边框及颜色
+        jPanelButton1.setBorder(new LineBorder(Color.YELLOW));
+        //设置组件位置
+        jPanelButton1.setBounds(20,660,200,50);
+
+        //创建转换按钮组件
+        JButton ChangeButton = new JButton();
+        //设置转换按钮文本
+        ChangeButton.setText("转 换");
+        //设置转换按钮字体
+        ChangeButton.setFont(buttonFont);
+        //设置转换按钮大小
+        ChangeButton.setPreferredSize(new Dimension(120,40));
+        //将转换按钮加载到转换按钮面板上
+        jPanelButton1.add(ChangeButton);
+
+
+
+
+        //创建一个JPanel对象存放【复制按钮】
+        JPanel jPanelButton2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        //显示面板边框及颜色
+        jPanelButton2.setBorder(new LineBorder(Color.YELLOW));
+        //设置组件位置
+        jPanelButton2.setBounds(300,660,200,50);
+
+        //创建复制按钮组件
+        JButton CopyButton = new JButton();
+        //设置复制按钮文本
+        CopyButton.setText("复 制");
+        //设置复制按钮字体
+        CopyButton.setFont(buttonFont);
+        //设置复制按钮大小
+        CopyButton.setPreferredSize(new Dimension(120,40));
+        //将复制按钮加载到转换按钮面板上
+        jPanelButton2.add(CopyButton);
+
+
         //设置空布局 随意摆放组件
         jFrame.getContentPane().setLayout(null);
 
@@ -136,7 +177,9 @@ public class StrChange {
         jFrame.getContentPane().add(jScrollPane2); //文本域转换完文本滚动条
 
 
-
+        //将按钮面板添加到JFrame容器中
+        jFrame.getContentPane().add(jPanelButton1); //转换按钮
+        jFrame.getContentPane().add(jPanelButton2); //复制按钮
 
         //设置窗口是否可见
         jFrame.setVisible(true);
